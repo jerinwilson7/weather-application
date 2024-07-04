@@ -2,39 +2,33 @@
 
 import { ForeCastCard } from "./ForeCastCard"
 
-// import { ForcastType } from "../types"
-// import { ForeCastCard } from "./ForeCastCard"
+import { ForcastType } from "../types"
 
-// type ForcastPropsType = {
-//     forecasts:ForcastType[]
-// }
+type ForcastPropsType = {
+    forecasts:ForcastType[]
+}
 
-export const Forecast = () => {
+export const Forecast = ({forecasts}:ForcastPropsType) => {
   return (
     <div className="bg-forcast px-6 pt-8 pb-4 rounded-2xl">
-            <div className="flex flex-wrap justify-between w-full text-white">
+            <div className="flex flex-nowrap overflow-scroll  gap-4 justify-between items-center w-full text-white">
 
-                <ForeCastCard
-                />
+                {
+                    forecasts.map((forecast, index) => (
+                        <ForeCastCard key={index}
+                        currentDay={forecast.currentDay}
+                          img={forecast.day.condition.icon} 
+                          max={forecast.day.maxtemp}
+                          min={forecast.day.mintemp}
+                          text={forecast.day.condition.text}
+
+                          />
+                    ))
+
+                }
                 
-                <ForeCastCard
-                />
                 
-                <ForeCastCard
-                />
-                
-                <ForeCastCard
-                />
-                
-                {/* {forecasts.map((forecast, index) => (
-                    <ForeCastCard
-                        key={index} 
-                        date={forecast.date}
-                        img={forecast.day.condition.icon}
-                        min={forecast.day.mintemp} 
-                        max={forecast.day.maxtemp} 
-                    />
-                ))} */}
+              
             </div>
         </div>
 

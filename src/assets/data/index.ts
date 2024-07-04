@@ -1,4 +1,4 @@
-import { CurrentWeatherType, ForcastType, LocationType } from "../../types"
+import { CurrentWeatherType, ForcastType, LocationType, PopulationType } from "../../types"
 
 export const quoteAPI = 'https://dummyjson.com/quotes/random'
 
@@ -54,6 +54,7 @@ export const initialCurrentWeather:CurrentWeatherType={
 
 export const initialForecast:ForcastType[] = [
     {
+        "currentDay":"monday",
         "date": "2024-07-04",
         "day": {
             "maxtemp": 29.3,
@@ -65,6 +66,7 @@ export const initialForecast:ForcastType[] = [
         }
     },
     {
+        "currentDay":"monday",
         "date": "2024-07-05",
         "day": {
             "maxtemp": 28.8,
@@ -76,6 +78,7 @@ export const initialForecast:ForcastType[] = [
         }
     },
     {
+        "currentDay":"monday",
         "date": "2024-07-06",
         "day": {
             "maxtemp": 29.2,
@@ -87,6 +90,7 @@ export const initialForecast:ForcastType[] = [
         }
     },
     {
+        "currentDay":"monday",
         "date": "2024-07-07",
         "day": {
             "maxtemp": 28.7,
@@ -98,6 +102,7 @@ export const initialForecast:ForcastType[] = [
         }
     },
     {
+        "currentDay":"monday",
         "date": "2024-07-08",
         "day": {
             "maxtemp": 28.6,
@@ -107,5 +112,37 @@ export const initialForecast:ForcastType[] = [
                 "icon": "//cdn.weatherapi.com/weather/64x64/day/176.png"
             }
         }
+    }
+]
+
+
+export const initialPopulation:PopulationType[] =  [
+    {
+        "year": "2001",
+        "count": "595575"
+    },
+    {
+        "year": "2001",
+        "count": "1355972"
+    },
+    {
+        "year": "2010",
+        "count": "343393"
+    },
+    {
+        "year": "2005",
+        "count": "333484"
+    },
+    {
+        "year": "2004",
+        "count": "332880"
+    },
+    {
+        "year": "2003",
+        "count": "332568"
+    },
+    {
+        "year": "2000",
+        "count": "330654"
     }
 ]

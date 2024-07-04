@@ -58,6 +58,12 @@ type Day = {
 
 
 export type ForcastType = {
+    currentDay:string
     date:string;
     day:Day
+}
+
+export type PopulationType = {
+    year:string;
+    count:string
 }
