@@ -12,7 +12,7 @@ type TemperaturePropsType={
 
 export const Temperature = ({current}:TemperaturePropsType) => {
   return (
-    <div className="flex pt-20 gap-10 items-center mb-12">
+    <div className="flex justify-between pt-20 gap-20 items-center mb-12">
     <div className="flex text-white font-mono justify-start items-center w-7/12">
       <h1 className="text-9xl font-medium ">{Math.trunc(current.temp_c)}</h1>
       <ul className="pl-4">
@@ -27,10 +27,10 @@ export const Temperature = ({current}:TemperaturePropsType) => {
       </ul>
     </div>
 
-      <div className="w-1/4">
+    <div className=" text-white items-center  flex">
+      <div className="w-1/3">
         <img src={current.condition.icon} className="w-48 h-48" alt="" />
       </div>
-    <div className=" text-white items-center justify-between">
       <ul className="flex flex-col gap-2">
         <li className="flex whitespace-nowrap gap-2">
           <img src={tempImg} alt="" />

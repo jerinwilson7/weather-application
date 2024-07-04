@@ -1,7 +1,7 @@
 import { Card } from "./Card";
 import { Header } from "./Header";
-import { Forcast } from "./Forcast";
+import { Forecast } from "./Forcast";
 import { Temperature } from "./Temperature";
 
 
-export {Card,Header,Temperature,Forcast}
+export {Card,Header,Temperature,Forecast}

@@ -16,6 +16,7 @@ export default {
       backgroundImage: {
         day:"url('./src/assets/images/day.png')",
         night:"url('./src/assets/images/night.png')",
+        bgMain:"url('./src/assets/images/fullpage-bg.png')",
       }
 
       

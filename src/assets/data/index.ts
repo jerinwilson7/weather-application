@@ -1,4 +1,4 @@
-import { CurrentWeatherType, LocationType } from "../../types"
+import { CurrentWeatherType, ForcastType, LocationType } from "../../types"
 
 export const quoteAPI = 'https://dummyjson.com/quotes/random'
 
@@ -25,7 +25,6 @@ export const initialCurrentWeather:CurrentWeatherType={
             "condition": {
                 "text": "Mist",
                 "icon": "//cdn.weatherapi.com/weather/64x64/day/143.png",
-                "code": 1030
             },
             "wind_mph": 2.2,
             "wind_kph": 3.6,
@@ -51,3 +50,62 @@ export const initialCurrentWeather:CurrentWeatherType={
             "gust_mph": 5,
             "gust_kph": 8.1
 }
+
+
+export const initialForecast:ForcastType[] = [
+    {
+        "date": "2024-07-04",
+        "day": {
+            "maxtemp": 29.3,
+            "mintemp": 25.6,
+            "condition": {
+                "text": "Moderate rain",
+                "icon": "//cdn.weatherapi.com/weather/64x64/day/302.png"
+            }
+        }
+    },
+    {
+        "date": "2024-07-05",
+        "day": {
+            "maxtemp": 28.8,
+            "mintemp": 25.6,
+            "condition": {
+                "text": "Moderate rain",
+                "icon": "//cdn.weatherapi.com/weather/64x64/day/302.png"
+            }
+        }
+    },
+    {
+        "date": "2024-07-06",
+        "day": {
+            "maxtemp": 29.2,
+            "mintemp": 24.5,
+            "condition": {
+                "text": "Moderate rain",
+                "icon": "//cdn.weatherapi.com/weather/64x64/day/302.png"
+            }
+        }
+    },
+    {
+        "date": "2024-07-07",
+        "day": {
+            "maxtemp": 28.7,
+            "mintemp": 24.7,
+            "condition": {
+                "text": "Patchy rain nearby",
+                "icon": "//cdn.weatherapi.com/weather/64x64/day/176.png"
+            }
+        }
+    },
+    {
+        "date": "2024-07-08",
+        "day": {
+            "maxtemp": 28.6,
+            "mintemp": 25,
+            "condition": {
+                "text": "Patchy rain nearby",
+                "icon": "//cdn.weatherapi.com/weather/64x64/day/176.png"
+            }
+        }
+    }
+]

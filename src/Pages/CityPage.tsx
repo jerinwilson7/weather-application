@@ -1,8 +1,8 @@
 
 import  { useState } from "react";
-import { Forcast, Header, Temperature } from "../Components";
+import {  Forecast, Header, Temperature } from "../Components";
 import { fetchData } from "../services/weatherService";
-import { initalLocation, initialCurrentWeather } from "../assets/data";
+import { initalLocation, initialCurrentWeather, initialForecast } from "../assets/data";
 
 export const CityPage = () => {
     const [city, setCity] = useState<string>('')
@@ -10,6 +10,7 @@ export const CityPage = () => {
     const [location,setLocation] = useState(initalLocation)
     const [currentWeather,setCurrentWeather] = useState(initialCurrentWeather)
     const [isDay, setIsDay] = useState(true)
+    const [forcasts, setForcasts] = useState(initialForecast)
 
   //  console.log(loading)
 
@@ -30,7 +31,9 @@ export const CityPage = () => {
           setLocation(weatherResponse.location)
           setCurrentWeather(weatherResponse.currentWeather)
           setIsDay(weatherResponse.location.isDay)
-        
+          setForcasts(weatherResponse.forcast)
+
+        console.log(forcasts)
 
         } catch (error) {
           console.log(error)
@@ -38,7 +41,7 @@ export const CityPage = () => {
       }
 
   return (
-    <div className='flex items-center justify-center h-screen w-screen' >
+    <div className='flex items-center justify-center h-screen w-screen bg-bgMain bg-cover bg-no-repeat' >
       <div className={`bg-cover p-14 rounded-lg bg-blue-500 max-w-[900px] ${isDay ? 'bg-day' : 'bg-night'}`}>
         {/* HEADER */}
 
@@ -50,12 +53,13 @@ export const CityPage = () => {
 
         {/* FORCAST */}
 
-        <Forcast/>
+        <Forecast
+        //  forecasts={forcasts}
+         />
       </div>
     </div>
   );
 };
 
 
-// 97732725c56443a0ac6115047240307
 

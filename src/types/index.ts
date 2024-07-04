@@ -13,7 +13,6 @@ export type LocationType = {
 type Condition = {
     text: string
     icon: string
-    code: number
 }
 
 export type CurrentWeatherType = {
@@ -46,4 +45,19 @@ export type CurrentWeatherType = {
     uv: number
     gust_mph: number
     gust_kph: number
+}
+
+
+
+
+type Day = {
+    maxtemp:number
+    mintemp:number;
+    condition:Condition
+}
+
+
+export type ForcastType = {
+    date:string;
+    day:Day
 }
