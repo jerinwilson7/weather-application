@@ -8,6 +8,7 @@ export const fetchData = async(city:string)=>{
         city:city
       }
     })
+    
     // console.log(response.data.data)
     const weatherData = response.data.data
     return weatherData

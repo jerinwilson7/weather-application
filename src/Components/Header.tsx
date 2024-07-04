@@ -17,6 +17,7 @@ export const Header = ({city,handleChangeCity,onSubmitCity,location}:HeaderProps
         onSubmitCity(city)
     }
 
+
   return (
     <div className='flex flex-1 justify-between items-center gap-14'>
     <div className='text-white font-mono mr-8'>

@@ -12,7 +12,7 @@ type TemperaturePropsType={
 
 export const Temperature = ({current}:TemperaturePropsType) => {
   return (
-    <div className="flex pt-20  items-center mb-12">
+    <div className="flex pt-20 gap-10 items-center mb-12">
     <div className="flex text-white font-mono justify-start items-center w-7/12">
       <h1 className="text-9xl font-medium ">{Math.trunc(current.temp_c)}</h1>
       <ul className="pl-4">
