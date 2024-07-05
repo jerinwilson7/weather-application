@@ -9,7 +9,20 @@ export const fetchData = async(city:string)=>{
       }
     })
     
-    // console.log(response.data.data)
-    const weatherData = response.data.data
-    return weatherData
+    console.log(response.data)
+    if(response.data.status === true){
+      return{
+        status:true,
+        message:response.data.message,
+        data:response.data.data
+      }
+    }
+    else{
+      return{
+        status:false,
+        message:response.data.message,
+        data:"error fetching data"
+      }
+    }
+   
 }

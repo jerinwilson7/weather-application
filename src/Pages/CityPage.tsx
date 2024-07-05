@@ -10,6 +10,7 @@ import {
   initialPopulation,
 } from "../assets/data";
 import {RiGroupLine } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 export const CityPage = () => {
   const [city, setCity] = useState<string>("");
@@ -21,29 +22,46 @@ export const CityPage = () => {
   const [isWeather, setisWeather] = useState(true)
   const [populations, setPopulations] = useState(initialPopulation)
 
+  // console.log(setisWeather)
 
   const handleCityChange = (city: string) => {
     setCity(city);
   };
 
   const handleSubmit = async () => {
-    // setLoading(true)
+    // setLoading(true)zcxzxczxczccxv
 
     try {
       const weatherResponse = await fetchData(city);
       console.log("weatherResponse", weatherResponse);
+      
+      if(weatherResponse.status){
 
-      setLocation(weatherResponse.location);
-      setCurrentWeather(weatherResponse.currentWeather);
-      setIsDay(weatherResponse.location.isDay);
-      setForcasts(weatherResponse.forecast);
-      setPopulations(weatherResponse.population)
+        toast.success(weatherResponse.message)
+
+        setLocation(weatherResponse.data.location);
+        setCurrentWeather(weatherResponse.data.currentWeather);
+        setIsDay(weatherResponse.data.location.isDay);
+        setForcasts(weatherResponse.data.forecast);
+        setPopulations(weatherResponse.data.population)
+        console.log(populations)
+      }
+      else{
+        toast.error(weatherResponse.message)
+      }
+
 
 
     } catch (error) {
       console.log(error);
     }
   };
+
+   const onDataChange = ()=>{
+
+     populations.status ? setisWeather((current)=>!current) : toast.error(populations.message)
+
+   }
 
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-bgMain bg-cover bg-no-repeat">
@@ -75,7 +93,7 @@ export const CityPage = () => {
 
 
         <button 
-        onClick={()=>setisWeather(weather=>!weather)}
+        onClick={onDataChange}
         className="py-2 bg-blue-700 rounded-lg px-2 border-white border absolute bottom-5 left-1/2">
           {isWeather ?
           < RiGroupLine color="white" size={20}/> :

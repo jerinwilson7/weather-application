@@ -63,7 +63,15 @@ export type ForcastType = {
     day:Day
 }
 
-export type PopulationType = {
+type PopulationData = {
     year:string;
     count:string
 }
+
+export type PopulationType = {
+    status:boolean
+    message:string
+    data:PopulationData[]
+    
+}
+

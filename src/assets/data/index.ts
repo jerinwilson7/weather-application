@@ -60,7 +60,7 @@ export const initialForecast:ForcastType[] = [
             "maxtemp": 29.3,
             "mintemp": 25.6,
             "condition": {
-                "text": "Moderate rain",
+                "text": "Moderate rains",
                 "icon": "//cdn.weatherapi.com/weather/64x64/day/302.png"
             }
         }
@@ -116,33 +116,40 @@ export const initialForecast:ForcastType[] = [
 ]
 
 
-export const initialPopulation:PopulationType[] =  [
-    {
-        "year": "2001",
-        "count": "595575"
-    },
-    {
-        "year": "2001",
-        "count": "1355972"
-    },
-    {
-        "year": "2010",
-        "count": "343393"
-    },
-    {
-        "year": "2005",
-        "count": "333484"
-    },
-    {
-        "year": "2004",
-        "count": "332880"
-    },
-    {
-        "year": "2003",
-        "count": "332568"
-    },
-    {
-        "year": "2000",
-        "count": "330654"
-    }
-]
+export const initialPopulation:PopulationType = {
+    status:true,
+    message:"data fetched",
+    data:[
+        {
+            "year": "2001",
+            "count": "595575"
+        },
+        {
+            "year": "2001",
+            "count": "1355972"
+        },
+        {
+            "year": "2010",
+            "count": "343393"
+        },
+        {
+            "year": "2005",
+            "count": "333484"
+        },
+        {
+            "year": "2004",
+            "count": "332880"
+        },
+        {
+            "year": "2003",
+            "count": "332568"
+        },
+        {
+            "year": "2000",
+            "count": "330654"
+        }
+    ]
+} 
+
+
+
