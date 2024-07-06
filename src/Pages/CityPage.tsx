@@ -15,14 +15,18 @@ import { initialPopulation } from "../assets/data";
 import { CurrentWeatherType } from "../types";
 
 export const CityPage = () => {
-  const [city, setCity] = useState<string>('alaska');
-  const [loading, setLoading] = useState(true)
+  const [city, setCity] = useState<string>("alaska");
+  const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState();
   const [currentWeather, setCurrentWeather] = useState<CurrentWeatherType>();
   const [isDay, setIsDay] = useState(true);
   const [forcasts, setForcasts] = useState();
   const [isWeather, setisWeather] = useState(true);
   const [populations, setPopulations] = useState(initialPopulation);
+  const [coords, setCoords] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
 
   useEffect(() => {
     const fetchInitial = async () => {
@@ -44,23 +48,21 @@ export const CityPage = () => {
       } catch (error) {
         console.error(error);
         toast.error("Failed to fetch weather data.");
-      } 
-      finally {
+      } finally {
         setLoading(false);
       }
     };
 
     fetchInitial();
   }, []);
-  
-  
+
+
 
   const handleCityChange = (city: string) => {
     setCity(city);
   };
 
   const handleSubmit = async () => {
-
     setCity(city.trim());
 
     try {
@@ -98,44 +100,54 @@ export const CityPage = () => {
       : toast.error(populations.message);
   };
 
-
-  if(loading){
-
-    return <div>Loading ....</div>
-
+  const getGeoLocation = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setCoords({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+        console.log(coords);
+        
+      });
+    } else {
+      console.log("Geolocation is not available in your browser.");
+    }
+  };
+  if (loading) {
+    return <div>Loading ....</div>;
   }
-    return (
-      <div className="flex items-center justify-center h-screen w-screen bg-bgMain bg-cover bg-no-repeat">
-        <div
-          className={`bg-cover p-14 rounded-lg bg-blue-500 max-w-[900px] ${
-            isDay ? "bg-day" : "bg-night"
-          }`}
-        >
-          {/* HEADER */}
-  
-          <Header
-            city={city}
-            location={location}
-            handleChangeCity={handleCityChange}
-            onSubmitCity={handleSubmit}
-          />
-  
-          {/* TEMPERATURE */}
-  
-          <Temperature current={currentWeather} />
-  
-          {/* FORCAST */}
-  
-          {isWeather ? (
-            <Forecast forecasts={forcasts} isDay={isDay} />
-          ) : (
-            <Population populations={populations} />
-          )}
-  
-          <Button isWeather={isWeather} onDataChange={onDataChange} />
-        </div>
-      </div>
-    );
-  
+  return (
+    <div className="flex items-center justify-center h-screen w-screen bg-bgMain bg-cover bg-no-repeat">
+      <div
+        className={`bg-cover p-14 rounded-lg bg-blue-500 max-w-[900px] ${
+          isDay ? "bg-day" : "bg-night"
+        }`}
+      >
+        {/* HEADER */}
 
+        <Header
+          city={city}
+          location={location}
+          handleChangeCity={handleCityChange}
+          onSubmitCity={handleSubmit}
+          onUserLocation={getGeoLocation}
+        />
+
+        {/* TEMPERATURE */}
+
+        <Temperature current={currentWeather} />
+
+        {/* FORCAST */}
+
+        {isWeather ? (
+          <Forecast forecasts={forcasts} isDay={isDay} />
+        ) : (
+          <Population populations={populations} />
+        )}
+
+        <Button isWeather={isWeather} onDataChange={onDataChange} />
+      </div>
+    </div>
+  );
 };

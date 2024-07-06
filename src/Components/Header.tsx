@@ -7,9 +7,10 @@ type HeaderProps = {
     handleChangeCity:(city:string)=>void
     onSubmitCity:(city:string)=>void
     location ?:LocationType
+    onUserLocation:()=>void
 }
 
-export const Header = ({city,handleChangeCity,onSubmitCity,location}:HeaderProps) => {
+export const Header = ({city,handleChangeCity,onSubmitCity,location,onUserLocation}:HeaderProps) => {
 
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
@@ -32,7 +33,7 @@ export const Header = ({city,handleChangeCity,onSubmitCity,location}:HeaderProps
         </form>
 
         <div>
-            <button className='py-2 bg-blue-700 rounded-lg px-1'>
+            <button className='py-2 bg-blue-700 rounded-lg px-1' onClick={onUserLocation}>
                 <img src={locationImg} alt="" />
             </button>
         </div>
