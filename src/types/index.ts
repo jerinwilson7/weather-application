@@ -56,3 +56,8 @@ export type PopulationType = {
     
 }
 
+export type weatherDataType={
+    city?:string
+    latitude?: string,
+    longitude?: string,
+}
