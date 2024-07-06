@@ -1,16 +1,20 @@
 
-// import sunImg from "../assets/images/sun.svg";
 import tempImg from "../assets/images/feels-like.svg";
 import humImg from "../assets/images/humidity.svg";
 import windImg from "../assets/images/wind.svg";
 import { CurrentWeatherType } from "../types";
 
 type TemperaturePropsType={
-  current:CurrentWeatherType
+  current?:CurrentWeatherType
 
 }
 
 export const Temperature = ({current}:TemperaturePropsType) => {
+
+  if (!current) {
+    return <div>No current weather data available</div>;
+  }
+
   return (
     <div className="flex justify-between pt-20 gap-20 items-center mb-12">
     <div className="flex text-white font-mono justify-start items-center w-7/12">
