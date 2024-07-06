@@ -1,18 +1,13 @@
-// import { useEffect, useState } from "react";
 import { Forecast, Header, Population, Temperature } from "../Components";
 import { fetchData } from "../services/weatherService";
-
-// import {
-//   initalLocation,
-//   initialCurrentWeather,
-//   initialForecast,
-//   initialPopulation,
-// } from "../assets/data";
 import { toast } from "react-toastify";
 import { Button } from "../Components/Button";
 import { useEffect, useState } from "react";
 import { initialPopulation } from "../assets/data";
-import { CurrentWeatherType } from "../types";
+import { CurrentWeatherType, weatherDataType } from "../types";
+
+
+
 
 export const CityPage = () => {
   const [city, setCity] = useState<string>("alaska");
@@ -32,34 +27,39 @@ export const CityPage = () => {
     const fetchInitial = async () => {
       console.log(city);
       try {
-        const weatherResponse = await fetchData(city);
-        console.log(weatherResponse);
-        setCity("");
-
-        if (weatherResponse.status) {
-          setLocation(weatherResponse.data.location);
-          setCurrentWeather(weatherResponse.data.currentWeather);
-          setIsDay(weatherResponse.data.location.isDay);
-          setForcasts(weatherResponse.data.forecast);
-          setPopulations(weatherResponse.data.population);
-        } else {
-          toast.error(weatherResponse.message);
-        }
+        fetchWeather({ city: city });
       } catch (error) {
         console.error(error);
         toast.error("Failed to fetch weather data.");
-      } finally {
-        setLoading(false);
-      }
+      } 
+     
     };
 
     fetchInitial();
   }, []);
 
+  const fetchWeather = async (data: weatherDataType) => {
+    try {
+      const weatherResponse = await fetchData(data);
+      console.log(weatherResponse);
+      setCity("");
 
-  con
+      if (weatherResponse.status) {
+        setLocation(weatherResponse.data.location);
+        setCurrentWeather(weatherResponse.data.currentWeather);
+        setIsDay(weatherResponse.data.location.isDay);
+        setForcasts(weatherResponse.data.forecast);
+        setPopulations(weatherResponse.data.population);
+        setLoading(false)
+      } else {
+        toast.error(weatherResponse.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch weather data.");
+    }
+  };
 
-  
   const handleCityChange = (city: string) => {
     setCity(city);
   };
@@ -75,22 +75,7 @@ export const CityPage = () => {
         return;
       }
 
-      const weatherResponse = await fetchData(city);
-      console.log("weatherResponse", weatherResponse);
-
-      setCity("");
-
-      if (weatherResponse.status) {
-        toast.success(weatherResponse.message);
-
-        setLocation(weatherResponse.data.location);
-        setCurrentWeather(weatherResponse.data.currentWeather);
-        setIsDay(weatherResponse.data.location.isDay);
-        setForcasts(weatherResponse.data.forecast);
-        setPopulations(weatherResponse.data.population);
-      } else {
-        toast.error(weatherResponse.message);
-      }
+      fetchWeather({ city: city });
     } catch (error) {
       console.log(error);
     }
@@ -103,53 +88,58 @@ export const CityPage = () => {
   };
 
   const getGeoLocation = () => {
-    if ("geolocation" in navigator) {
+    console.log("GEO");
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setCoords({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
         console.log(coords);
-        
+
+        fetchWeather({
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+        });
       });
     } else {
       console.log("Geolocation is not available in your browser.");
     }
   };
-  if (loading) {
-    return <div>Loading ....</div>;
-  }
+
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-bgMain bg-cover bg-no-repeat">
-      <div
-        className={`bg-cover p-14 rounded-lg bg-blue-500 max-w-[900px] ${
-          isDay ? "bg-day" : "bg-night"
-        }`}
-      >
-        {/* HEADER */}
+      {loading ? (
+        <div className="text-white text-lg">Loading...</div>
+      ) : (
+        <div
+          className={`bg-cover p-14 rounded-lg bg-blue-500 max-w-[900px] ${
+            isDay ? "bg-day" : "bg-night"
+          }`}
+        >
+          {/* HEADER */}
+          <Header
+            city={city}
+            location={location}
+            handleChangeCity={handleCityChange}
+            onSubmitCity={handleSubmit}
+            onUserLocation={getGeoLocation}
+          />
 
-        <Header
-          city={city}
-          location={location}
-          handleChangeCity={handleCityChange}
-          onSubmitCity={handleSubmit}
-          onUserLocation={getGeoLocation}
-        />
+          {/* TEMPERATURE */}
+          <Temperature current={currentWeather} />
 
-        {/* TEMPERATURE */}
+          {/* FORECAST OR POPULATION */}
+          {isWeather ? (
+            <Forecast forecasts={forcasts} isDay={isDay} />
+          ) : (
+            <Population populations={populations} />
+          )}
 
-        <Temperature current={currentWeather} />
-
-        {/* FORCAST */}
-
-        {isWeather ? (
-          <Forecast forecasts={forcasts} isDay={isDay} />
-        ) : (
-          <Population populations={populations} />
-        )}
-
-        <Button isWeather={isWeather} onDataChange={onDataChange} />
-      </div>
+          {/* TOGGLE BUTTON */}
+          <Button isWeather={isWeather} onDataChange={onDataChange} />
+        </div>
+      )}
     </div>
   );
 };

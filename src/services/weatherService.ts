@@ -7,7 +7,7 @@ import clouds from '../assets/images/clouds.svg'
 import clearNight from '../assets/images/clearNight.svg'
 import thunderRain from '../assets/images/thunderRain.svg'
 import moderateRain from '../assets/images/moderate-rain.svg'
-import { Condition } from "../types"
+import { Condition, weatherDataType } from "../types"
 
 export const changeIcon = (condition:Condition, location:boolean)=>{
 
@@ -24,12 +24,12 @@ export const changeIcon = (condition:Condition, location:boolean)=>{
 }
 
 
-export const fetchData = async(city:string)=>{
+export const fetchData = async(weatherData:weatherDataType)=>{
   
   console.log("getch")
     const response = await axios.get(`${SERVER}`,{
       params:{
-        city:city
+        data:weatherData
       }
     })
     
