@@ -1,4 +1,4 @@
-import {PopulationType } from "../../types"
+import {PopulationType, StateType } from "../../types"
 
 export const quoteAPI = 'https://dummyjson.com/quotes/random'
 
@@ -40,5 +40,15 @@ export const initialPopulation:PopulationType = {
     ]
 } 
 
-
+export const initialState:StateType = {
+    city: "alaska",
+    loading: true,
+    location: null,
+    currentWeather: null,
+    isDay: true,
+    forecasts: null,
+    isWeather: true,
+    populations: initialPopulation,
+    coords: { latitude: 0, longitude: 0 },
+  };
 
