@@ -36,12 +36,11 @@ export const CityPage = () => {
     };
 
     fetchInitial();
-  }, []);
+  },[]);
 
   const fetchWeather = async (data: weatherDataType) => {
     try {
       const weatherResponse = await fetchData(data);
-      console.log(weatherResponse);
       setCity("");
 
       if (weatherResponse.status) {
@@ -55,7 +54,6 @@ export const CityPage = () => {
         toast.error(weatherResponse.message);
       }
     } catch (error) {
-      console.error(error);
       toast.error("Failed to fetch weather data.");
     }
   };
@@ -77,7 +75,7 @@ export const CityPage = () => {
 
       fetchWeather({ city: city });
     } catch (error) {
-      console.log(error);
+      toast.error("error fetching data")
     }
   };
 
@@ -88,14 +86,12 @@ export const CityPage = () => {
   };
 
   const getGeoLocation = () => {
-    console.log("GEO");
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setCoords({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
-        console.log(coords);
 
         fetchWeather({
           latitude: coords.latitude,
@@ -103,7 +99,7 @@ export const CityPage = () => {
         });
       });
     } else {
-      console.log("Geolocation is not available in your browser.");
+      toast.error("Geolocation is not available in your browser.");
     }
   };
 
@@ -143,3 +139,5 @@ export const CityPage = () => {
     </div>
   );
 };
+
+

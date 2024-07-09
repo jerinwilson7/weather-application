@@ -18,7 +18,7 @@ export const ForeCastCard = ({currentDay,max,min,condition,isDay}:ForcastCardPro
     <div className="flex flex-col items-center justify-center m-1 space-y-1">
             <h3 className="font-mono text-sm font-semibold">{currentDay}</h3>
             <img className="w-20 h-20 " src={condition.icon} alt=""  />
-            <p className="font-sans text-sm ">{max}°C - {min}°C</p>
+            <p className="font-sans text-sm ">{min}°C - {max}°C</p>
             <p className="font-mono text-xs font-semibold ">{condition.text}</p>
         </div>
   )

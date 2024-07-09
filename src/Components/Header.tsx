@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import locationImg from '../assets/images/location-light.svg'
 import {  LocationType } from '../types';
 
@@ -12,6 +12,12 @@ type HeaderProps = {
 
 export const Header = ({city,handleChangeCity,onSubmitCity,location,onUserLocation}:HeaderProps) => {
 
+    const inpulEl  = useRef<HTMLInputElement | null>(null)
+
+    useEffect(()=>{
+        if(inpulEl.current)
+        inpulEl.current.focus();
+    },[])
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
@@ -28,7 +34,7 @@ export const Header = ({city,handleChangeCity,onSubmitCity,location,onUserLocati
 
     <div className='flex gap-3 items-center'>
         <form onSubmit={handleSubmit}>
-            <input type="text" value={city} className=' rounded-md font-mono p-2' onChange={(e)=>handleChangeCity(e.target.value)}/>
+            <input type="text" value={city} className=' rounded-md font-mono p-2' onChange={(e)=>handleChangeCity(e.target.value)} ref={inpulEl}/>
             <input type="submit" className='bg-blue-700 py-2 px-4 rounded-lg text-white' value="search" />
         </form>
 

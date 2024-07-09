@@ -12,7 +12,7 @@ export const HomePage = () => {
  
 
   return (
-    <div className="flex flex-col justify-center items-center bg-bgMain bg-cover bg-no-repeat h-screen w-screen space-y-4">
+    <div className="flex flex-col justify-center items-center bg-bgMain bg-cover bg-no-repeat h-screen w-screen  space-y-4">
         <Card/>
         <button 
         onClick={()=>navigate('/city-details')}
