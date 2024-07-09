@@ -61,7 +61,7 @@ export type StateType = {
   location: null | LocationType;
   currentWeather: null | CurrentWeatherType;
   isDay: boolean;
-  forecasts: ForcastType | null;
+  forecasts: ForcastType[] | null;
   isWeather: boolean;
   populations: PopulationType;
   coords: {
@@ -88,15 +88,13 @@ type SetCurrentWeather = {
 };
 type SetIsDay = {
   type: "SET_IS_DAY";
-  payload:boolean
 };
 type SetForecasts = {
   type: "SET_FORECASTS";
-  payload:ForcastType
+  payload:ForcastType[]
 };
 type IsWeather = {
   type: "IS_WEATHER";
-  payload:boolean
 };
 type SetPopulations = {
   type: "SET_POPULATIONS";

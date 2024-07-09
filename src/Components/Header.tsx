@@ -6,7 +6,7 @@ type HeaderProps = {
     city:string,
     handleChangeCity:(city:string)=>void
     onSubmitCity:(city:string)=>void
-    location ?:LocationType
+    location :LocationType |null
     onUserLocation:()=>void
 }
 

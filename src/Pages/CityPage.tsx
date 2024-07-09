@@ -2,26 +2,20 @@ import { Forecast, Header, Population, Temperature } from "../Components";
 import { fetchData } from "../services/weatherService";
 import { toast } from "react-toastify";
 import { Button } from "../Components/Button";
-import { useEffect, useState } from "react";
-import { initialPopulation } from "../assets/data";
-import { CurrentWeatherType, weatherDataType } from "../types";
+import { useEffect, useReducer } from "react";
+import {  initialState } from "../assets/data";
+import {  weatherDataType } from "../types";
+import { weatherReaducer } from "../Reducer/WeatherReducer";
 
 
 
 
 export const CityPage = () => {
-  const [city, setCity] = useState<string>("alaska");
-  const [loading, setLoading] = useState(true);
-  const [location, setLocation] = useState();
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeatherType>();
-  const [isDay, setIsDay] = useState(true);
-  const [forcasts, setForcasts] = useState();
-  const [isWeather, setisWeather] = useState(true);
-  const [populations, setPopulations] = useState(initialPopulation);
-  const [coords, setCoords] = useState({
-    latitude: 0,
-    longitude: 0,
-  });
+
+
+
+  const [{city,coords,currentWeather,forecasts,isDay,isWeather,loading,location,populations},dispatch] = useReducer(weatherReaducer,initialState)
+
 
   useEffect(() => {
     const fetchInitial = async () => {
@@ -41,15 +35,16 @@ export const CityPage = () => {
   const fetchWeather = async (data: weatherDataType) => {
     try {
       const weatherResponse = await fetchData(data);
-      setCity("");
+      dispatch({type:"SET_CITY",payload:''})
 
       if (weatherResponse.status) {
-        setLocation(weatherResponse.data.location);
-        setCurrentWeather(weatherResponse.data.currentWeather);
-        setIsDay(weatherResponse.data.location.isDay);
-        setForcasts(weatherResponse.data.forecast);
-        setPopulations(weatherResponse.data.population);
-        setLoading(false)
+        dispatch({type:'SET_LOCATION' , payload: weatherResponse.data.location});
+        dispatch({type:'SET_CURRENT_WEATHER' ,payload:weatherResponse.data.currentWeather});
+        dispatch({type:'SET_IS_DAY'});
+        dispatch({type:"SET_FORECASTS",payload:weatherResponse.data.forecast});
+        dispatch({type:'SET_POPULATIONS' ,payload:weatherResponse.data.population});
+        dispatch({type:"SET_LOADING" ,payload:false})
+
       } else {
         toast.error(weatherResponse.message);
       }
@@ -59,11 +54,11 @@ export const CityPage = () => {
   };
 
   const handleCityChange = (city: string) => {
-    setCity(city);
+    dispatch({type:"SET_CITY",payload:city})
   };
 
   const handleSubmit = async () => {
-    setCity(city.trim());
+    dispatch({type:"SET_CITY",payload:city.trim()})
 
     try {
       city.trim();
@@ -81,16 +76,20 @@ export const CityPage = () => {
 
   const onDataChange = () => {
     populations.status
-      ? setisWeather((current) => !current)
+      ? dispatch({type:"IS_WEATHER"})
       : toast.error(populations.message);
   };
 
   const getGeoLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setCoords({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+        dispatch({
+          type:"SET_COORDS",
+          payload:{
+
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          }
         });
 
         fetchWeather({
@@ -127,7 +126,7 @@ export const CityPage = () => {
 
           {/* FORECAST OR POPULATION */}
           {isWeather ? (
-            <Forecast forecasts={forcasts} isDay={isDay} />
+            <Forecast forecasts={forecasts} isDay={isDay} />
           ) : (
             <Population populations={populations} />
           )}

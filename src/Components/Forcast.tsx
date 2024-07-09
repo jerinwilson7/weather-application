@@ -5,7 +5,7 @@ import { ForeCastCard } from "./ForeCastCard"
 import { ForcastType } from "../types"
 
 type ForcastPropsType = {
-    forecasts?:ForcastType[];
+    forecasts:ForcastType[] | null;
     isDay:boolean
 }
 

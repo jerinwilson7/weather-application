@@ -19,7 +19,7 @@ export const weatherReaducer = (state:StateType,action:ActionTypes):StateType=>{
         case 'SET_IS_DAY':
             return {...state,isDay:!state.isDay}
         case 'SET_LOADING':
-            return{...state,loading:!state.loading}
+            return{...state,loading:action.payload}
         
         case 'SET_LOCATION':
             return{...state,location:action.payload}

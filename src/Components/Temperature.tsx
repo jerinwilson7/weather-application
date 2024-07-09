@@ -5,7 +5,7 @@ import windImg from "../assets/images/wind.svg";
 import { CurrentWeatherType } from "../types";
 
 type TemperaturePropsType={
-  current?:CurrentWeatherType
+  current:CurrentWeatherType | null
 
 }
 
