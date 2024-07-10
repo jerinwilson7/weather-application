@@ -56,7 +56,7 @@ export const CityPage = () => {
       }
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch weather data.");
+      toast.error("Failed to fetch weather data");
     }
   };
 
