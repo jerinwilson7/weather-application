@@ -27,21 +27,18 @@ export const changeIcon = (condition:Condition, location:boolean)=>{
 
 export const fetchData = async(weatherData:weatherDataType)=>{
   
-  console.log("getch")
     const response = await axios.get(`${SERVER}`,{
       params:{
         data:weatherData
       }
     })
     
-    console.log(response.data)
     if(response.data.status === true){
 
       const condition  =response.data.data.currentWeather.condition
       const location = response.data.data.location.isDay
 
-      // console.log(!location.isday)
-      // console.log(condition.text)
+    
 
       changeIcon(condition,location)
 

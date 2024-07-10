@@ -19,7 +19,6 @@ export const CityPage = () => {
 
   useEffect(() => {
     const fetchInitial = async () => {
-      console.log(city);
       try {
         fetchWeather({ city: city });
       } catch (error) {
@@ -40,10 +39,11 @@ export const CityPage = () => {
       if (weatherResponse.status) {
         dispatch({type:'SET_LOCATION' , payload: weatherResponse.data.location});
         dispatch({type:'SET_CURRENT_WEATHER' ,payload:weatherResponse.data.currentWeather});
-        dispatch({type:'SET_IS_DAY'});
+        dispatch({type:'SET_IS_DAY',payload:weatherResponse.data.location.isDay});
         dispatch({type:"SET_FORECASTS",payload:weatherResponse.data.forecast});
         dispatch({type:'SET_POPULATIONS' ,payload:weatherResponse.data.population});
         dispatch({type:"SET_LOADING" ,payload:false})
+
 
       } else {
         toast.error(weatherResponse.message);

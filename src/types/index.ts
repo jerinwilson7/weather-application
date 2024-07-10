@@ -88,6 +88,7 @@ type SetCurrentWeather = {
 };
 type SetIsDay = {
   type: "SET_IS_DAY";
+  payload:boolean
 };
 type SetForecasts = {
   type: "SET_FORECASTS";
