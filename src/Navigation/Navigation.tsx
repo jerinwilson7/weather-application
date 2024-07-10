@@ -4,6 +4,7 @@ import 'react-toastify/ReactToastify.css'
 import { 
   Bounce, 
   ToastContainer } from "react-toastify";
+import { PageNotFound } from "../Pages/PageNotFound";
 
 export const Navigation = () => {
   return (
@@ -12,6 +13,7 @@ export const Navigation = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/city-details" element={<CityPage/>} />
+          <Route path="*" element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
       <ToastContainer
